@@ -1,8 +1,10 @@
+import Title from './Title'
+
 function App() {
 
   return (
     <>
-      Hello Cerebra's
+      <Title />
     </>
   )
 }
