@@ -5,7 +5,6 @@ function Title() {
       background: 'pink',
       paddingTop: '2em',
       paddingBottom: '2em',
-      margin: '1em',
       border: '1px solid #FF69B4',
       borderRadius: '1em'
     },
