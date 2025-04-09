@@ -1,6 +1,7 @@
 import Title from './Title'
 import CategoryCard from './Cards/CatergoryCard'
 import PointsCard from './Cards/PointsCard'
+import Footer from './Cards/Footer'
 
 function App() {
 
@@ -61,12 +62,13 @@ function App() {
         {allCategoriesTitle}
       </div>
       <div style={style.pointsCardsWorthContainer}>
-      {Array.from({ length: numberOfRepeats }, (_, index) => (
-        <div key={index} style={style.pointsCardsWorth}>
-          {allPointsCards}
-        </div>
-      ))}
-    </div>
+        {Array.from({ length: numberOfRepeats }, (_, index) => (
+          <div key={index} style={style.pointsCardsWorth}>
+            {allPointsCards}
+          </div>
+        ))}
+      </div>
+      <Footer />
     </div>
   )
 }
