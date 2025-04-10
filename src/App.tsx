@@ -1,7 +1,8 @@
 import Title from './Title'
 import CategoryCard from './Cards/CatergoryCard'
 import PointsCard from './Cards/PointsCard'
-import Footer from './Cards/Footer'
+import Footer from './Footer'
+import { useState } from 'react'
 
 function App() {
 
@@ -23,6 +24,13 @@ function App() {
     }
   }
 
+  const [isQuestionPending, setIsQuestionPending] = useState(false)
+  const [isAnswerComplete, setIsAnsweredComplete] = useState(false)
+
+  const pointsCardClick = () => {
+    setIsAnsweredComplete(true)
+  }
+
   const categoriesTitle = [
     <CategoryCard title="Dentistry" />,
     <CategoryCard title="Midwifery" />,
@@ -31,11 +39,11 @@ function App() {
     <CategoryCard title="Common Medical Practice" />]
 
   const pointsCards = [
-    <PointsCard questionWorth={200} />,
-    <PointsCard questionWorth={400} />,
-    <PointsCard questionWorth={600} />,
-    <PointsCard questionWorth={800} />,
-    <PointsCard questionWorth={1000} />,]
+    <PointsCard isPending={false} isAnswered={isAnswerComplete} questionWorth={200} />,
+    <PointsCard isPending={false} isAnswered={false} questionWorth={400} />,
+    <PointsCard isPending={false} isAnswered={false} questionWorth={600} />,
+    <PointsCard isPending={false} isAnswered={false} questionWorth={800} />,
+    <PointsCard isPending={false} isAnswered={false} questionWorth={1000} />,]
 
   const allCategoriesTitle = categoriesTitle.map((card, index) => {
     return (
@@ -47,7 +55,7 @@ function App() {
 
   const allPointsCards = pointsCards.map((card, index) => {
     return (
-      <div key={index}>
+      <div key={index} onClick={pointsCardClick}>
         {card}
       </div>
     )

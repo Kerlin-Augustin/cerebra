@@ -2,10 +2,14 @@ import { useState } from "react"
 
 interface PointsCardProps {
   questionWorth: number
+  isPending: boolean
+  isAnswered: boolean
 }
 
 function PointsCard({
-  questionWorth
+  questionWorth,
+  isPending,
+  isAnswered
 }: PointsCardProps) {
 
   const [isHovered, setIsHovered] = useState(false)
@@ -13,7 +17,7 @@ function PointsCard({
   const style: { [key: string]: React.CSSProperties } = {
     container: {
       borderRadius: '1em',
-      background: isHovered ? '#D21F3C' : 'pink',
+      background: isAnswered ? 'grey' : isHovered ? '#D21F3C' : 'pink',
       border: '1px solid #FF69B4',
       textAlign: 'center',
       marginTop: '1em',
