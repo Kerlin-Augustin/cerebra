@@ -5,8 +5,7 @@ import Footer from './Footer'
 import { useState } from 'react'
 
 function App() {
-
-  const style: { [key: string]: React.CSSProperties } = {
+  const style = {
     categoriesTitleCards: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
@@ -24,11 +23,22 @@ function App() {
     }
   }
 
-  const [isQuestionPending, setIsQuestionPending] = useState(false)
-  const [isAnswerComplete, setIsAnsweredComplete] = useState(false)
+  // Create a 2D array to track the state of each card
+  // First dimension: category (column)
+  // Second dimension: points value (row)
+  const [answeredCards, setAnsweredCards] = useState(
+    Array(5).fill().map(() => Array(5).fill(false))
+  );
 
-  const pointsCardClick = () => {
-    setIsAnsweredComplete(true)
+  const pointsCardClick = (categoryIndex: number, pointIndex: number) => {
+    // Create a deep copy of the current state
+    const newAnsweredCards = answeredCards.map(category => [...category]);
+    
+    // Toggle the state for the specific card
+    newAnsweredCards[categoryIndex][pointIndex] = true;
+    
+    // Update the state
+    setAnsweredCards(newAnsweredCards);
   }
 
   const categoriesTitle = [
@@ -36,32 +46,18 @@ function App() {
     <CategoryCard title="Midwifery" />,
     <CategoryCard title="Anesthesia" />,
     <CategoryCard title="Doctor" />,
-    <CategoryCard title="Common Medical Practice" />]
+    <CategoryCard title="Common Medical Practice" />
+  ];
 
-  const pointsCards = [
-    <PointsCard isPending={false} isAnswered={isAnswerComplete} questionWorth={200} />,
-    <PointsCard isPending={false} isAnswered={false} questionWorth={400} />,
-    <PointsCard isPending={false} isAnswered={false} questionWorth={600} />,
-    <PointsCard isPending={false} isAnswered={false} questionWorth={800} />,
-    <PointsCard isPending={false} isAnswered={false} questionWorth={1000} />,]
+  const pointsValues = [200, 400, 600, 800, 1000];
 
-  const allCategoriesTitle = categoriesTitle.map((card, index) => {
-    return (
-      <div key={index}>
-        {card}
-      </div>
-    )
-  })
+  const allCategoriesTitle = categoriesTitle.map((card, index) => (
+    <div key={index}>
+      {card}
+    </div>
+  ));
 
-  const allPointsCards = pointsCards.map((card, index) => {
-    return (
-      <div key={index} onClick={pointsCardClick}>
-        {card}
-      </div>
-    )
-  })
-
-  const numberOfRepeats = 5;
+  const numberOfCategories = 5;
 
   return (
     <div style={{ margin: '1em' }}>
@@ -70,9 +66,20 @@ function App() {
         {allCategoriesTitle}
       </div>
       <div style={style.pointsCardsWorthContainer}>
-        {Array.from({ length: numberOfRepeats }, (_, index) => (
-          <div key={index} style={style.pointsCardsWorth}>
-            {allPointsCards}
+        {Array.from({ length: numberOfCategories }, (_, categoryIndex) => (
+          <div key={categoryIndex} style={style.pointsCardsWorth}>
+            {pointsValues.map((worth, pointIndex) => (
+              <div 
+                key={pointIndex} 
+                onClick={() => pointsCardClick(categoryIndex, pointIndex)}
+              >
+                <PointsCard 
+                  isPending={false} 
+                  isAnswered={answeredCards[categoryIndex][pointIndex]} 
+                  questionWorth={worth} 
+                />
+              </div>
+            ))}
           </div>
         ))}
       </div>

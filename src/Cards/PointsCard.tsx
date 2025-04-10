@@ -17,8 +17,8 @@ function PointsCard({
   const style: { [key: string]: React.CSSProperties } = {
     container: {
       borderRadius: '1em',
-      background: isAnswered ? 'grey' : isHovered ? '#D21F3C' : 'pink',
-      border: '1px solid #FF69B4',
+      background: isAnswered ? 'lightgrey' : isHovered ? '#D21F3C' : 'pink',
+      border: isAnswered ? '1px solid lightgrey' : '1px solid #FF69B4',
       textAlign: 'center',
       marginTop: '1em',
       cursor: 'pointer',
