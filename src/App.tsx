@@ -27,7 +27,7 @@ function App() {
   // First dimension: category (column)
   // Second dimension: points value (row)
   const [answeredCards, setAnsweredCards] = useState(
-    Array(5).fill().map(() => Array(5).fill(false))
+    Array(5).fill(0).map(() => Array(5).fill(false))
   );
 
   const pointsCardClick = (categoryIndex: number, pointIndex: number) => {
