@@ -22,7 +22,21 @@ function App() {
       gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
       gap: '10px'
     },
-
+    overlayCards: {
+      position: 'absolute',
+      margin: '18em 8em',
+      top: 0,
+      left: 0,
+      width: '85vw',
+      height: '53vh',
+      backgroundColor: 'rgb(255, 255, 255)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: 'black',
+      borderRadius: '1em',
+      border: '1px solid #FF69B4'
+    } as React.CSSProperties
   }
 
   const [answeredCards, setAnsweredCards] = useState(
@@ -83,10 +97,9 @@ function App() {
         ))}
       </div>
       {isOverlayOpen &&
-        <div>
-          <QuestionCard />
+        <div style={style.overlayCards}>
+          <QuestionCard question='What is a Dentist?' answer=''/>
         </div>}
-
       <Footer />
     </div>
   )
