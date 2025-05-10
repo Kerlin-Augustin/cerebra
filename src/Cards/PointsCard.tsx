@@ -2,7 +2,7 @@ import { useState } from "react"
 
 interface PointsCardProps {
   questionWorth: number
-  isPending: boolean
+  isPending: 'null' | 'true' | 'false'
   isAnswered: boolean
 }
 

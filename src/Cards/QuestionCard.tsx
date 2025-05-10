@@ -1,7 +1,7 @@
 function QuestionCard() {
   return (
     <div>
-      
+      Hello
     </div>
   )
 }

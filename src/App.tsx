@@ -1,8 +1,9 @@
+import { useState } from 'react'
 import Title from './Title'
 import CategoryCard from './Cards/CatergoryCard'
 import PointsCard from './Cards/PointsCard'
 import Footer from './Footer'
-import { useState } from 'react'
+import QuestionCard from './Cards/QuestionCard'
 
 function App() {
   const style = {
@@ -20,24 +21,22 @@ function App() {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
       gap: '10px'
-    }
+    },
+
   }
 
-  // Create a 2D array to track the state of each card
-  // First dimension: category (column)
-  // Second dimension: points value (row)
   const [answeredCards, setAnsweredCards] = useState(
     Array(5).fill(0).map(() => Array(5).fill(false))
   );
 
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false)
+
   const pointsCardClick = (categoryIndex: number, pointIndex: number) => {
-    // Create a deep copy of the current state
     const newAnsweredCards = answeredCards.map(category => [...category]);
-    
-    // Toggle the state for the specific card
     newAnsweredCards[categoryIndex][pointIndex] = true;
-    
-    // Update the state
+    const overlayValue = newAnsweredCards[categoryIndex][pointIndex] = true;
+    console.log(newAnsweredCards)
+    setIsOverlayOpen(overlayValue)
     setAnsweredCards(newAnsweredCards);
   }
 
@@ -69,20 +68,25 @@ function App() {
         {Array.from({ length: numberOfCategories }, (_, categoryIndex) => (
           <div key={categoryIndex} style={style.pointsCardsWorth}>
             {pointsValues.map((worth, pointIndex) => (
-              <div 
-                key={pointIndex} 
+              <div
+                key={pointIndex}
                 onClick={() => pointsCardClick(categoryIndex, pointIndex)}
               >
-                <PointsCard 
-                  isPending={false} 
-                  isAnswered={answeredCards[categoryIndex][pointIndex]} 
-                  questionWorth={worth} 
+                <PointsCard
+                  isPending='null'
+                  isAnswered={answeredCards[categoryIndex][pointIndex]}
+                  questionWorth={worth}
                 />
               </div>
             ))}
           </div>
         ))}
       </div>
+      {isOverlayOpen &&
+        <div>
+          <QuestionCard />
+        </div>}
+
       <Footer />
     </div>
   )
