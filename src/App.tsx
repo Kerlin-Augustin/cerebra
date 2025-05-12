@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import Title from './Title'
-import CategoryCard from './Cards/CatergoryCard'
+import CategoryCard from './Cards/CategoryCard'
 import PointsCard from './Cards/PointsCard'
 import Footer from './Footer'
 import QuestionCard from './Cards/QuestionCard'
+import axios from 'axios'
 
 function App() {
   const style = {
@@ -54,6 +55,14 @@ function App() {
     setAnsweredCards(newAnsweredCards);
   }
 
+  const handleClick = () => {
+    axios
+      .get('/api/categoryQuestion')
+      .then(res => {
+        console.log(res)
+      })
+  }
+
   const categoriesTitle = [
     <CategoryCard title="Dentistry" />,
     <CategoryCard title="Midwifery" />,
@@ -98,7 +107,7 @@ function App() {
       </div>
       {isOverlayOpen &&
         <div style={style.overlayCards}>
-          <QuestionCard question='What is a Dentist?' answer=''/>
+          <QuestionCard question='What is a Dentist?' answer='' handleClick={handleClick}/>
         </div>}
       <Footer />
     </div>

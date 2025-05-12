@@ -1,17 +1,19 @@
 interface QuestionCardProps {
   question: string,
   answer: string,
+  handleClick: () => void,
 }
 
 function QuestionCard({
   question,
-  answer
+  answer,
+  handleClick
 }: QuestionCardProps) {
   return (
     <div>
       <h2>{question}</h2>
       <p>{answer}</p>
-      <button>What is...</button>
+      <button onClick={handleClick}>What is...</button>
     </div>
   )
 }
