@@ -1,31 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import mongoose from "mongoose";
-
-const connectDB = async () => {
-  try{
-    const connect = await mongoose.connect(process.env.MONGO_URI || '')
-    // console.log(`MongoDB connected: ${connect.connection.host}`)
-  } catch (err) {
-    console.error('MongoDB connection error:', err)
-    process.exit(1)
-  }
-}
-
-const questionSchema = new mongoose.Schema({
-  question: {
-    difficulty: Number,
-    question: String,
-    answer: String,
-  }
-})
-
-const Dentistry = mongoose.model('Dentistry', questionSchema, 'Dentistry')
-const Midwifery = mongoose.model('Midwifery', questionSchema, 'Midwifery')
-const Anesthesia = mongoose.model('Anesthesia', questionSchema, 'Anesthesia')
-const Doctor = mongoose.model('Doctor', questionSchema, 'Doctor')
-const CommonMedicalPractice = mongoose.model('Common Medical Practice', questionSchema, 'Common Medical Practice')
+import { Dentistry, Midwifery, Anesthesia, Doctor, CommonMedicalPractice } from './models/questionModels.js'
+import connectDB from './config/db.js'
 
 dotenv.config()
 
